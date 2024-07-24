@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Veterinarian_Dotnet_Api.App.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +11,9 @@ builder.Services.AddSwaggerGen();
 // Controller
 builder.Services.AddControllers();
 
+// Database Context
+builder.Services.AddDbContext<DatabaseContext>(options => 
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
