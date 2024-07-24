@@ -14,7 +14,6 @@ public class User
 
   [Required]
   [MinLength(8)]
-  [MaxLength(20)]
   public required string Password { get; set; }
   
   public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
