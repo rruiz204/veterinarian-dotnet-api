@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  veterinarian-dotnet-db:
+    image: postgres:14
+    container_name: veterinarian-dotnet-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - veterinarian-dotnet-data:/var/lib/postgres/data
+    environment:
+      - POSTGRES_PASSWORD=admin123
+
+volumes:
+  veterinarian-dotnet-data:
