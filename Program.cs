@@ -5,6 +5,10 @@ using Veterinarian_Dotnet_Api.App.Services.Interfaces;
 using Veterinarian_Dotnet_Api.App.Repositories;
 using Veterinarian_Dotnet_Api.App.Repositories.Interfaces;
 
+// Utilities
+using Veterinarian_Dotnet_Api.App.Utils;
+using Veterinarian_Dotnet_Api.App.Utils.Interfaces;
+
 // Database
 using Microsoft.EntityFrameworkCore;
 using Veterinarian_Dotnet_Api.App.Database;
@@ -46,6 +50,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Services and Repositories
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+// Utilities
+builder.Services.AddScoped<IEncryptPassword, EncryptPassword>();
+builder.Services.AddScoped<IJwtToken, JwtToken>();
 
 var app = builder.Build();
 
