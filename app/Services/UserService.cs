@@ -1,23 +1,22 @@
 using Veterinarian_Dotnet_Api.App.Models;
 using Veterinarian_Dotnet_Api.App.Services.Interfaces;
 using Veterinarian_Dotnet_Api.App.Repositories.Interfaces;
-using Microsoft.AspNetCore.Identity;
+using Veterinarian_Dotnet_Api.App.Utils.Interfaces;
+using Veterinarian_Dotnet_Api.App.Exceptions;
 
 namespace Veterinarian_Dotnet_Api.App.Services;
 
-public class UserService(IUserRepository repository) : IUserService
+public class UserService(IUserRepository repository, IEncryptPassword encrypt) : IUserService
 {
   private readonly IUserRepository _repository = repository;
-  private readonly PasswordHasher<User> _hasher = new();
+  private readonly IEncryptPassword _encrypt = encrypt;
 
   public async Task<User> CreateUser(User user)
   {
-    user.Password = HashPassword(user, user.Password);
-    return await _repository.CreateUser(user);
-  }
+    User? existing = await _repository.FindUserByEmail(user.Email);
+    if (existing != null) throw new EmailAlreadyExistsException();
 
-  public string HashPassword(User user, string password)
-  {
-    return _hasher.HashPassword(user, password);
+    user.Password = _encrypt.Hash(user.Password);
+    return await _repository.CreateUser(user);
   }
 }
