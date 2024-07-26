@@ -8,7 +8,7 @@ using Veterinarian_Dotnet_Api.App.DTO;
 namespace Veterinarian_Dotnet_Api.App.Controllers;
 
 [ApiController]
-[TypeFilter<EmailAlreadyExistsExceptionFilter>]
+[TypeFilter<ArgumentExceptionFilter>]
 [Route("api/[controller]")]
 public class UserController(IUserService service, IJwtToken jwt) : ControllerBase
 {
@@ -19,6 +19,14 @@ public class UserController(IUserService service, IJwtToken jwt) : ControllerBas
   public async Task<IActionResult> CreateUser([FromForm] User user)
   {
     User response = await _service.CreateUser(user);
+    string token = _jwt.Generate(response.Id);
+    return Ok(new AuthenticationDTO(token));
+  }
+
+  [HttpPost("Login")]
+  public async Task<IActionResult> LoginUser([FromForm] User user)
+  {
+    User response = await _service.LoginUser(user);
     string token = _jwt.Generate(response.Id);
     return Ok(new AuthenticationDTO(token));
   }
