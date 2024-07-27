@@ -2,13 +2,15 @@ using Veterinarian_Dotnet_Api.App.Models;
 using Veterinarian_Dotnet_Api.App.Services.Interfaces;
 using Veterinarian_Dotnet_Api.App.Repositories.Interfaces;
 using Veterinarian_Dotnet_Api.App.Utils.Interfaces;
+using Veterinarian_Dotnet_Api.App.Emails.Interfaces;
 
 namespace Veterinarian_Dotnet_Api.App.Services;
 
-public class UserService(IUserRepository repository, IEncryptPassword encrypt) : IUserService
+public class UserService(IUserRepository repository, IEncryptPassword encrypt, IEmail mail) : IUserService
 {
   private readonly IUserRepository _repository = repository;
   private readonly IEncryptPassword _encrypt = encrypt;
+  private readonly IEmail _mail = mail;
 
   public async Task<User> CreateUser(User user)
   {
@@ -16,6 +18,7 @@ public class UserService(IUserRepository repository, IEncryptPassword encrypt) :
     if (existing != null) throw new ArgumentException("This email already exists");
 
     user.Password = _encrypt.Hash(user.Password);
+    await _mail.Send(user.Email);
     return await _repository.CreateUser(user);
   }
 

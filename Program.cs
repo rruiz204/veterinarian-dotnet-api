@@ -18,6 +18,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+// Configurations
+using Veterinarian_Dotnet_Api.App.Configuration;
+
+// Mailing
+using Veterinarian_Dotnet_Api.App.Emails;
+using Veterinarian_Dotnet_Api.App.Emails.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -54,6 +61,12 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 // Utilities
 builder.Services.AddScoped<IEncryptPassword, EncryptPassword>();
 builder.Services.AddScoped<IJwtToken, JwtToken>();
+
+// Configurations
+builder.Services.Configure<Mailtrap>(builder.Configuration.GetSection("Mailtrap"));
+
+// Mailing
+builder.Services.AddScoped<IEmail, RegisterEmail>();
 
 var app = builder.Build();
 
