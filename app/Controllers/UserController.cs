@@ -24,7 +24,7 @@ public class UserController(IUserService service, IJwtToken jwt) : ControllerBas
   }
 
   [HttpPost("Login")]
-  public async Task<IActionResult> LoginUser([FromForm] User user)
+  public async Task<IActionResult> LoginUser([FromForm] LoginDTO user)
   {
     User response = await _service.LoginUser(user);
     string token = _jwt.Generate(response.Id);
