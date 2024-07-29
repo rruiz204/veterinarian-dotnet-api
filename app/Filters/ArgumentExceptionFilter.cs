@@ -9,7 +9,7 @@ public class ArgumentExceptionFilter : IExceptionFilter
   {
     if (context.Exception is ArgumentException)
     {
-      context.Result = new BadRequestObjectResult(context.Exception.Message);
+      context.Result = new BadRequestObjectResult(new { message = context.Exception.Message });
       context.ExceptionHandled = true;
     }
   }
