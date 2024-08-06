@@ -10,5 +10,6 @@ public class DatabaseContext(DbContextOptions<DatabaseContext> options) : DbCont
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().ToTable("users");
+        modelBuilder.Entity<ResetToken>().ToTable("password_reset_tokens");
     }
 }
