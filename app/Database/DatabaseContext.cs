@@ -6,10 +6,11 @@ namespace Veterinarian_Dotnet_Api.App.Database;
 public class DatabaseContext(DbContextOptions<DatabaseContext> options) : DbContext(options)
 {
     public DbSet<User> User { get; set; }
+    public DbSet<ResetToken> ResetToken { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().ToTable("users");
-        modelBuilder.Entity<ResetToken>().ToTable("password_reset_tokens");
+        modelBuilder.Entity<ResetToken>().ToTable("reset_tokens");
     }
 }

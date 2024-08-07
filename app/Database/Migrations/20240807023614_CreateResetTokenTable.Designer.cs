@@ -12,8 +12,8 @@ using Veterinarian_Dotnet_Api.App.Database;
 namespace veterinarian_dotnet_api.app.Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240724153729_CreateUserTable")]
-    partial class CreateUserTable
+    [Migration("20240807023614_CreateResetTokenTable")]
+    partial class CreateResetTokenTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,31 @@ namespace veterinarian_dotnet_api.app.Database.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Veterinarian_Dotnet_Api.App.Models.ResetToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("reset_tokens", (string)null);
+                });
 
             modelBuilder.Entity("Veterinarian_Dotnet_Api.App.Models.User", b =>
                 {
@@ -41,10 +66,24 @@ namespace veterinarian_dotnet_api.app.Database.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("character varying(9)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");

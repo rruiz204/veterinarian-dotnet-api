@@ -18,8 +18,11 @@ namespace veterinarian_dotnet_api.app.Database.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    Password = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "character varying(9)", maxLength: 9, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },

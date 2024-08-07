@@ -7,13 +7,13 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace veterinarian_dotnet_api.app.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class CreatePasswordResetTokensTable : Migration
+    public partial class CreateResetTokenTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "password_reset_tokens",
+                name: "reset_tokens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -24,7 +24,7 @@ namespace veterinarian_dotnet_api.app.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_password_reset_tokens", x => x.Id);
+                    table.PrimaryKey("PK_reset_tokens", x => x.Id);
                 });
         }
 
@@ -32,7 +32,7 @@ namespace veterinarian_dotnet_api.app.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "password_reset_tokens");
+                name: "reset_tokens");
         }
     }
 }

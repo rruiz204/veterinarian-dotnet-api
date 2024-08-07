@@ -12,8 +12,8 @@ using Veterinarian_Dotnet_Api.App.Database;
 namespace veterinarian_dotnet_api.app.Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240729172551_UpdateUserTable")]
-    partial class UpdateUserTable
+    [Migration("20240807023540_CreateUserTable")]
+    partial class CreateUserTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

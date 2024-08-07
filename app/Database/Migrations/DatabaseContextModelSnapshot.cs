@@ -44,7 +44,7 @@ namespace veterinarian_dotnet_api.app.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("password_reset_tokens", (string)null);
+                    b.ToTable("reset_tokens", (string)null);
                 });
 
             modelBuilder.Entity("Veterinarian_Dotnet_Api.App.Models.User", b =>
