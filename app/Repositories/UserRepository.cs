@@ -20,4 +20,11 @@ public class UserRepository(DatabaseContext context) : IUserRepository
     await _context.SaveChangesAsync();
     return user;
   }
+
+  public async Task<User> UpdateUser(User user)
+  {
+    _context.User.Update(user);
+    await _context.SaveChangesAsync();
+    return user;
+  }
 }
