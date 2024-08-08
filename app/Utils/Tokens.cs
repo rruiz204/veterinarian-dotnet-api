@@ -6,7 +6,7 @@ using Veterinarian_Dotnet_Api.App.Utils.Interfaces;
 
 namespace Veterinarian_Dotnet_Api.App.Utils;
 
-public class JwtToken(IConfiguration configuration) : IJwtToken
+public class Tokens(IConfiguration configuration) : ITokens
 {
   private readonly IConfiguration _configuration = configuration;
 

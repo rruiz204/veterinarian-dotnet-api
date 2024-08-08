@@ -62,8 +62,8 @@ builder.Services.AddScoped<IResetTokenService, ResetTokenService>();
 builder.Services.AddScoped<IResetTokenRepository, ResetTokenRepository>();
 
 // Utilities
-builder.Services.AddScoped<IEncryptPassword, EncryptPassword>();
-builder.Services.AddScoped<IJwtToken, JwtToken>();
+builder.Services.AddScoped<IEncrypt, Encrypt>();
+builder.Services.AddScoped<ITokens, Tokens>();
 
 // Configurations
 builder.Services.Configure<Mailtrap>(builder.Configuration.GetSection("Mailtrap"));

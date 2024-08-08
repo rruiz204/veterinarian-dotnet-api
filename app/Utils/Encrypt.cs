@@ -4,7 +4,7 @@ using Veterinarian_Dotnet_Api.App.Utils.Interfaces;
 
 namespace Veterinarian_Dotnet_Api.App.Utils;
 
-public class EncryptPassword : IEncryptPassword
+public class Encrypt : IEncrypt
 {
   private readonly PasswordHasher<User> _hasher = new();
 
