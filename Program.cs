@@ -13,11 +13,6 @@ using Veterinarian_Dotnet_Api.App.Utils.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Veterinarian_Dotnet_Api.App.Database;
 
-// JWT Authentication
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-
 // Configurations
 using Veterinarian_Dotnet_Api.App.Configuration;
 
@@ -39,20 +34,9 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DatabaseContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// JWT Authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options => {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["JWT:Issuer"],
-            ValidAudience = builder.Configuration["JWT:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]!)),
-        };
-    });
+// Authentication & Authorization
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddAuthorizationPolicies();
 
 // Services and Repositories
 builder.Services.AddScoped<IUserService, UserService>();
